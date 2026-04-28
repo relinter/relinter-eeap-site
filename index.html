@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RELINTER — Relações Internacionais EEAP · UNIRIO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+/* ===================== RESET & ROOT ===================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:    #0B1A2E;
+  --navy2:   #142136;
+  --navy3:   #1c2f4a;
+  --blue:    #5BC8F5;
+  --blue2:   #3aafd9;
+  --gold:    #F5C842;
+  --gold2:   #d4a520;
+  --white:   #ffffff;
+  --off:     #F6F8FB;
+  --muted:   #6B7A92;
+  --border:  rgba(11,26,46,.1);
+  --border2: rgba(11,26,46,.18);
+  --card-r:  14px;
+  --sans:    'Plus Jakarta Sans', sans-serif;
+  --serif:   'DM Serif Display', serif;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); background: var(--off); color: var(--navy); line-height: 1.6; }
+img  { max-width: 100%; display: block; }
+a    { color: inherit; text-decoration: none; }
+
+/* ===================== UTILITIES ===================== */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+.hidden     { display: none !important; }
+.tag {
+  display: inline-block; font-size: 10px; font-weight: 600;
+  padding: 3px 10px; border-radius: 20px; letter-spacing: .04em; text-transform: uppercase;
+}
+.tag-blue   { background: #dff1fc; color: #0e6fa3; }
+.tag-green  { background: #dff5ea; color: #0e6b3f; }
+.tag-gold   { background: #fef4d0; color: #8a6300; }
+.tag-red    { background: #fee; color: #a32020; }
+.tag-gray   { background: #f0f0f0; color: #555; }
+.tag-purple { background: #ede8ff; color: #4b3a9c; }
+
+.badge-open   { background: #dff5ea; color: #0e6b3f; font-size: 11px; font-weight: 600; padding: 3px 11px; border-radius: 20px; }
+.badge-closed { background: #f0f0f0; color: #888;    font-size: 11px; font-weight: 500; padding: 3px 11px; border-radius: 20px; }
+.badge-new    { background: #dff1fc; color: #0e6fa3; font-size: 11px; font-weight: 600; padding: 3px 11px; border-radius: 20px; }
+
+/* ===================== NAV ===================== */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--navy);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px; gap: 24px;
+}
+.nav-brand { display: flex; align-items: center; gap: 12px; }
+.nav-logo-relinter { height: 38px; width: auto; }
+.nav-logo-eeap     { height: 38px; width: auto; opacity: .85; }
+.nav-sep { width: 1px; height: 28px; background: rgba(255,255,255,.15); }
+.nav-tagline { color: rgba(255,255,255,.45); font-size: 11px; line-height: 1.35; }
+.nav-tagline strong { display: block; color: rgba(255,255,255,.75); font-size: 12px; font-weight: 600; }
+
+.nav-links { display: flex; gap: 2px; }
+.nav-link {
+  color: rgba(255,255,255,.5); font-size: 13px; font-weight: 500;
+  padding: 8px 14px; border-radius: 8px; cursor: pointer;
+  transition: all .18s;
+}
+.nav-link:hover { background: rgba(255,255,255,.08); color: #fff; }
+.nav-link.active { background: rgba(91,200,245,.18); color: var(--blue); }
+
+.nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+.nav-toggle span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,.7); border-radius: 2px; transition: all .2s; }
+
+.mobile-menu {
+  display: none; background: var(--navy2);
+  border-top: 1px solid rgba(255,255,255,.07);
+}
+.mobile-menu.open { display: block; }
+.mobile-link {
+  display: block; color: rgba(255,255,255,.6); font-size: 14px; font-weight: 500;
+  padding: 14px 24px; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,.05);
+  transition: color .15s;
+}
+.mobile-link:hover, .mobile-link.active { color: var(--blue); }
+
+/* ===================== HERO ===================== */
+.hero {
+  background: var(--navy);
+  padding: 72px 0 0;
+  overflow: hidden;
+  position: relative;
+}
+.hero-grid-bg {
+  position: absolute; inset: 0; opacity: .05;
+  background-image:
+    linear-gradient(rgba(91,200,245,.6) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(91,200,245,.6) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+.hero-glow {
+  position: absolute; top: -100px; right: -100px;
+  width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(91,200,245,.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-content { position: relative; display: flex; align-items: flex-end; gap: 60px; }
+.hero-text { flex: 1; padding-bottom: 56px; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(91,200,245,.12); border: 1px solid rgba(91,200,245,.25);
+  border-radius: 20px; padding: 5px 14px; margin-bottom: 22px;
+}
+.hero-eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
+.hero-eyebrow span { color: var(--blue); font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(36px, 5vw, 58px);
+  color: #fff; line-height: 1.1; margin-bottom: 18px;
+}
+.hero h1 em { color: var(--blue); font-style: italic; }
+.hero-sub { color: rgba(255,255,255,.5); font-size: 15px; line-height: 1.7; max-width: 480px; margin-bottom: 32px; }
+.hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-pri {
+  background: var(--blue); color: var(--navy); font-size: 13px; font-weight: 700;
+  padding: 12px 24px; border-radius: 10px; cursor: pointer; border: none;
+  transition: background .18s, transform .15s;
+}
+.btn-pri:hover { background: var(--blue2); transform: translateY(-1px); }
+.btn-sec {
+  background: rgba(255,255,255,.07); color: rgba(255,255,255,.7);
+  font-size: 13px; font-weight: 500; padding: 12px 24px;
+  border-radius: 10px; cursor: pointer; border: 1px solid rgba(255,255,255,.15);
+  transition: all .18s;
+}
+.btn-sec:hover { background: rgba(255,255,255,.12); color: #fff; }
+
+.hero-visual {
+  flex-shrink: 0; width: 340px; align-self: flex-end;
+  background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px 16px 0 0; padding: 24px 24px 0; overflow: hidden;
+}
+.hero-card-label { color: rgba(255,255,255,.35); font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 14px; }
+.hero-stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.hero-stat {
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.08);
+  border-radius: 10px; padding: 14px; text-align: center;
+}
+.hero-stat-num { color: #fff; font-size: 26px; font-weight: 700; line-height: 1; }
+.hero-stat-lbl { color: rgba(255,255,255,.4); font-size: 10px; margin-top: 4px; }
+.hero-edital-preview {
+  background: rgba(91,200,245,.08); border: 1px solid rgba(91,200,245,.2);
+  border-radius: 10px; padding: 12px 14px; margin-bottom: 10px;
+  display: flex; align-items: center; gap: 10px;
+}
+.hero-edital-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
+.hero-edital-text { flex: 1; }
+.hero-edital-ttl { color: rgba(255,255,255,.8); font-size: 11px; font-weight: 600; }
+.hero-edital-sub { color: rgba(255,255,255,.35); font-size: 10px; margin-top: 2px; }
+.hero-edital-badge { font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 20px; background: rgba(91,200,245,.2); color: var(--blue); flex-shrink: 0; }
+
+/* stats bar */
+.stats-bar { background: var(--navy2); border-top: 1px solid rgba(255,255,255,.06); }
+.stats-bar-inner { display: flex; }
+.stat-item { flex: 1; padding: 22px 0; text-align: center; border-right: 1px solid rgba(255,255,255,.06); }
+.stat-item:last-child { border-right: none; }
+.stat-num { color: #fff; font-size: 28px; font-weight: 700; line-height: 1; }
+.stat-lbl { color: rgba(255,255,255,.35); font-size: 11px; margin-top: 4px; }
+
+/* ===================== SECTIONS ===================== */
+.page-section { display: none; }
+.page-section.active { display: block; }
+
+.section { padding: 52px 0; }
+.section-alt { background: var(--white); }
+.section-dark { background: var(--navy); }
+
+.section-header { margin-bottom: 32px; }
+.section-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--blue2); margin-bottom: 6px; }
+.section-title { font-family: var(--serif); font-size: 32px; color: var(--navy); line-height: 1.15; }
+.section-title-light { color: #fff; }
+.section-sub { color: var(--muted); font-size: 14px; margin-top: 8px; max-width: 500px; }
+.section-sub-light { color: rgba(255,255,255,.45); }
+
+/* PILLS FILTER */
+.pills { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+.pill {
+  font-size: 12px; font-weight: 500; padding: 7px 16px; border-radius: 20px;
+  border: 1px solid var(--border2); cursor: pointer; color: var(--muted);
+  background: #fff; transition: all .15s;
+}
+.pill:hover { border-color: var(--blue2); color: var(--blue2); }
+.pill.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+
+/* EDITAIS */
+.editais-list { display: flex; flex-direction: column; gap: 10px; }
+.edital-card {
+  display: flex; align-items: center; gap: 16px;
+  background: #fff; border: 1px solid var(--border);
+  border-radius: var(--card-r); padding: 18px 20px;
+  cursor: pointer; transition: border-color .18s, box-shadow .18s;
+}
+.edital-card:hover { border-color: var(--blue2); box-shadow: 0 4px 20px rgba(91,200,245,.12); }
+.edital-card.encerrado { opacity: .55; }
+.edital-icon {
+  width: 44px; height: 44px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.edital-icon svg { width: 22px; height: 22px; }
+.edital-body { flex: 1; min-width: 0; }
+.edital-title { font-size: 14px; font-weight: 600; color: var(--navy); line-height: 1.3; }
+.edital-meta  { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.edital-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
+.edital-prazo { font-size: 12px; color: var(--muted); }
+.edital-link {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12px; font-weight: 600; color: var(--blue2);
+  padding: 5px 12px; border-radius: 8px; border: 1px solid rgba(58,175,217,.3);
+  transition: all .15s;
+}
+.edital-link:hover { background: rgba(91,200,245,.08); }
+
+/* NEWS GRID */
+.news-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
+.news-card {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: var(--card-r); overflow: hidden;
+  cursor: pointer; transition: border-color .18s, transform .18s, box-shadow .18s;
+}
+.news-card:hover { border-color: var(--blue2); transform: translateY(-3px); box-shadow: 0 8px 30px rgba(11,26,46,.1); }
+.news-card.featured { grid-column: span 2; display: flex; }
+.news-img {
+  height: 130px; display: flex; align-items: center; justify-content: center;
+  overflow: hidden; flex-shrink: 0;
+}
+.news-img img { width: 100%; height: 100%; object-fit: cover; }
+.news-img-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+.news-card.featured .news-img { width: 220px; height: auto; min-height: 160px; }
+.news-body { padding: 18px; flex: 1; display: flex; flex-direction: column; }
+.news-tag { margin-bottom: 10px; }
+.news-title { font-size: 14px; font-weight: 600; color: var(--navy); line-height: 1.35; flex: 1; }
+.news-card.featured .news-title { font-size: 17px; }
+.news-date { font-size: 11px; color: var(--muted); margin-top: 12px; }
+
+/* VIDEO CARDS */
+.video-list { display: flex; flex-direction: column; gap: 10px; }
+.video-card {
+  display: flex; align-items: center; gap: 16px;
+  background: var(--navy3); border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--card-r); padding: 16px 20px;
+  cursor: pointer; transition: border-color .18s;
+}
+.video-card:hover { border-color: rgba(91,200,245,.35); }
+.play-btn {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--blue); display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: background .15s;
+}
+.play-btn:hover { background: var(--blue2); }
+.play-btn svg { width: 14px; height: 14px; margin-left: 2px; }
+.video-body { flex: 1; }
+.video-title { color: rgba(255,255,255,.85); font-size: 14px; font-weight: 600; line-height: 1.3; }
+.video-sub   { color: rgba(255,255,255,.35); font-size: 11px; margin-top: 4px; }
+.video-dur   { color: rgba(255,255,255,.3); font-size: 12px; flex-shrink: 0; }
+
+/* MEMORIES */
+.mem-year-block { margin-bottom: 40px; }
+.mem-year-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+.mem-year-num { font-family: var(--serif); font-size: 36px; color: var(--navy); line-height: 1; }
+.mem-year-line { flex: 1; height: 1px; background: var(--border2); }
+.mem-year-count { font-size: 12px; color: var(--muted); }
+.mem-masonry { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.mem-item {
+  border-radius: 10px; overflow: hidden; cursor: pointer;
+  transition: opacity .18s, transform .18s;
+  background: #ddd; position: relative;
+}
+.mem-item:hover { opacity: .9; transform: scale(1.02); }
+.mem-item img { width: 100%; height: 100%; object-fit: cover; }
+.mem-item-placeholder { width: 100%; height: 140px; display: flex; align-items: center; justify-content: center; }
+.mem-item.tall .mem-item-placeholder { height: 290px; }
+.mem-item.wide { grid-column: span 2; }
+.mem-item.tall { grid-row: span 2; }
+
+/* CONVENIOS */
+.convenios-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.conv-card {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: var(--card-r); padding: 20px;
+  cursor: pointer; transition: border-color .18s, box-shadow .18s;
+}
+.conv-card:hover { border-color: var(--blue2); box-shadow: 0 4px 20px rgba(91,200,245,.1); }
+.conv-country { font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 6px; }
+.conv-name    { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 6px; line-height: 1.25; }
+.conv-tipo    { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+.conv-footer  { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid var(--border); }
+.conv-vigencia { font-size: 11px; color: var(--muted); }
+
+/* EQUIPE */
+.equipe-card {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: var(--card-r); padding: 28px;
+  display: flex; align-items: center; gap: 20px; max-width: 500px;
+}
+.equipe-avatar {
+  width: 72px; height: 72px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--navy2), var(--navy3));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; font-weight: 700; color: var(--blue); border: 2px solid rgba(91,200,245,.3);
+}
+.equipe-name  { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+.equipe-role  { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+.equipe-email { font-size: 13px; color: var(--blue2); font-weight: 500; }
+
+/* LOADING */
+.loading-state { text-align: center; padding: 48px; color: var(--muted); font-size: 14px; }
+.loading-spinner {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 3px solid var(--border2); border-top-color: var(--blue2);
+  animation: spin .8s linear infinite; margin: 0 auto 12px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* EMPTY STATE */
+.empty-state { text-align: center; padding: 48px; color: var(--muted); }
+.empty-icon { font-size: 36px; margin-bottom: 12px; opacity: .4; }
+
+/* FOOTER */
+.footer { background: var(--navy); border-top: 1px solid rgba(255,255,255,.06); padding: 40px 0; }
+.footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.footer-brand { display: flex; align-items: center; gap: 12px; }
+.footer-logo-eeap { height: 40px; width: auto; opacity: .6; }
+.footer-logo-rel  { height: 36px; width: auto; }
+.footer-info p { color: rgba(255,255,255,.3); font-size: 12px; line-height: 1.6; }
+.footer-info a { color: rgba(255,255,255,.45); transition: color .15s; }
+.footer-info a:hover { color: var(--blue); }
+.footer-links { display: flex; gap: 20px; }
+.footer-link { color: rgba(255,255,255,.35); font-size: 12px; transition: color .15s; }
+.footer-link:hover { color: var(--blue); }
+
+/* CONTACT SECTION */
+.contact-box {
+  background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1);
+  border-radius: 16px; padding: 32px; max-width: 480px;
+}
+.contact-box h3 { color: #fff; font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+.contact-box p  { color: rgba(255,255,255,.4); font-size: 13px; margin-bottom: 20px; }
+.contact-item { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.contact-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(91,200,245,.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.contact-label { font-size: 11px; color: rgba(255,255,255,.35); }
+.contact-value { font-size: 13px; color: rgba(255,255,255,.75); font-weight: 500; }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .nav-toggle { display: flex; }
+  .hero-visual { display: none; }
+  .hero-content { flex-direction: column; }
+  .hero-text { padding-bottom: 40px; }
+  .stats-bar-inner { flex-wrap: wrap; }
+  .stat-item { min-width: 50%; border-bottom: 1px solid rgba(255,255,255,.06); }
+  .news-grid { grid-template-columns: 1fr 1fr; }
+  .news-card.featured { grid-column: span 2; flex-direction: column; }
+  .news-card.featured .news-img { width: 100%; height: 160px; }
+  .convenios-grid { grid-template-columns: 1fr 1fr; }
+  .mem-masonry { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 600px) {
+  .news-grid { grid-template-columns: 1fr; }
+  .news-card.featured { grid-column: span 1; }
+  .convenios-grid { grid-template-columns: 1fr; }
+  .mem-masonry { grid-template-columns: repeat(2, 1fr); }
+  .hero h1 { font-size: 32px; }
+  .section-title { font-size: 26px; }
+  .edital-card { flex-wrap: wrap; }
+  .edital-right { flex-direction: row; align-items: center; width: 100%; justify-content: space-between; }
+  .container { padding: 0 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav class="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <img src="relinter_logo.png" alt="RELINTER" class="nav-logo-relinter" onerror="this.style.display='none'">
+        <img src="eeap_logo.png" alt="EEAP" class="nav-logo-eeap" onerror="this.style.display='none'">
+        <div class="nav-sep"></div>
+        <div class="nav-tagline">
+          <strong>Relações Internacionais</strong>
+          Escola de Enfermagem Alfredo Pinto · UNIRIO
+        </div>
+      </div>
+      <div class="nav-links">
+        <div class="nav-link active" onclick="showPage('home',this)">Início</div>
+        <div class="nav-link" onclick="showPage('editais',this)">Editais</div>
+        <div class="nav-link" onclick="showPage('noticias',this)">Notícias</div>
+        <div class="nav-link" onclick="showPage('memorias',this)">Memórias</div>
+        <div class="nav-link" onclick="showPage('convenios',this)">Convênios</div>
+        <div class="nav-link" onclick="showPage('contato',this)">Contato</div>
+      </div>
+      <div class="nav-toggle" onclick="toggleMenu()" id="menuBtn">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-link active" onclick="showPage('home',this);toggleMenu()">Início</div>
+    <div class="mobile-link" onclick="showPage('editais',this);toggleMenu()">Editais</div>
+    <div class="mobile-link" onclick="showPage('noticias',this);toggleMenu()">Notícias</div>
+    <div class="mobile-link" onclick="showPage('memorias',this);toggleMenu()">Memórias</div>
+    <div class="mobile-link" onclick="showPage('convenios',this);toggleMenu()">Convênios</div>
+    <div class="mobile-link" onclick="showPage('contato',this);toggleMenu()">Contato</div>
+  </div>
+</nav>
+
+<!-- ===== HOME ===== -->
+<section id="page-home" class="page-section active">
+
+  <div class="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-glow"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <div class="hero-eyebrow">
+            <div class="hero-eyebrow-dot"></div>
+            <span>RELINTER · EEAP · UNIRIO</span>
+          </div>
+          <h1>Enfermagem sem<br><em>fronteiras</em></h1>
+          <p class="hero-sub">Intercâmbios, editais de mobilidade, parcerias globais e as memórias que constroem a história internacional da nossa escola.</p>
+          <div class="hero-ctas">
+            <button class="btn-pri" onclick="showPage('editais',document.querySelectorAll('.nav-link')[1])">Ver editais abertos</button>
+            <button class="btn-sec" onclick="showPage('memorias',document.querySelectorAll('.nav-link')[3])">Nossa história</button>
+          </div>
+        </div>
+        <div class="hero-visual" id="heroVisual">
+          <div class="hero-card-label">Editais em aberto</div>
+          <div class="hero-stat-row">
+            <div class="hero-stat">
+              <div class="hero-stat-num" id="statConvenios">—</div>
+              <div class="hero-stat-lbl">Convênios</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-num" id="statEditais">—</div>
+              <div class="hero-stat-lbl">Editais abertos</div>
+            </div>
+          </div>
+          <div id="heroEditais"></div>
+        </div>
+      </div>
+    </div>
+    <div class="stats-bar">
+      <div class="container">
+        <div class="stats-bar-inner" id="statsBar">
+          <div class="stat-item"><div class="stat-num" id="s1">—</div><div class="stat-lbl">Convênios ativos</div></div>
+          <div class="stat-item"><div class="stat-num" id="s2">—</div><div class="stat-lbl">Editais abertos</div></div>
+          <div class="stat-item"><div class="stat-num" id="s3">—</div><div class="stat-lbl">Países parceiros</div></div>
+          <div class="stat-item"><div class="stat-num" id="s4">—</div><div class="stat-lbl">Memórias registradas</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Em destaque</div>
+        <div class="section-title">Editais abertos agora</div>
+      </div>
+      <div class="editais-list" id="homeEditais">
+        <div class="loading-state"><div class="loading-spinner"></div>Carregando editais...</div>
+      </div>
+      <div style="margin-top:20px">
+        <button class="btn-sec" style="color:var(--navy);border-color:var(--border2)" onclick="showPage('editais',document.querySelectorAll('.nav-link')[1])">Ver todos os editais →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Últimas</div>
+        <div class="section-title">Notícias e eventos</div>
+      </div>
+      <div class="news-grid" id="homeNoticias">
+        <div class="loading-state" style="grid-column:span 3"><div class="loading-spinner"></div>Carregando notícias...</div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ===== EDITAIS ===== -->
+<section id="page-editais" class="page-section">
+  <div style="background:var(--navy);padding:56px 0 48px">
+    <div class="container">
+      <div class="hero-eyebrow" style="margin-bottom:16px"><div class="hero-eyebrow-dot"></div><span>Oportunidades</span></div>
+      <div class="section-title section-title-light" style="font-family:var(--serif);font-size:42px">Editais e bolsas</div>
+      <p class="section-sub section-sub-light" style="margin-top:10px">Mobilidade acadêmica, bolsas de pesquisa e programas internacionais.</p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="container">
+      <div class="pills" id="editaisPills">
+        <div class="pill active" onclick="filterEditais('todos',this)">Todos</div>
+        <div class="pill" onclick="filterEditais('mobilidade',this)">Mobilidade</div>
+        <div class="pill" onclick="filterEditais('bolsa',this)">Bolsas</div>
+        <div class="pill" onclick="filterEditais('pesquisa',this)">Pesquisa</div>
+        <div class="pill" onclick="filterEditais('encerrado',this)">Encerrados</div>
+      </div>
+      <div class="editais-list" id="editaisList">
+        <div class="loading-state"><div class="loading-spinner"></div>Carregando editais...</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== NOTICIAS ===== -->
+<section id="page-noticias" class="page-section">
+  <div style="background:var(--navy);padding:56px 0 48px">
+    <div class="container">
+      <div class="hero-eyebrow" style="margin-bottom:16px"><div class="hero-eyebrow-dot"></div><span>Novidades</span></div>
+      <div class="section-title section-title-light" style="font-family:var(--serif);font-size:42px">Notícias e eventos</div>
+      <p class="section-sub section-sub-light" style="margin-top:10px">Acompanhe o que acontece nas relações internacionais da EEAP.</p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="container">
+      <div class="pills" id="noticiasPills">
+        <div class="pill active" onclick="filterNoticias('todos',this)">Todos</div>
+        <div class="pill" onclick="filterNoticias('intercambio',this)">Intercâmbio</div>
+        <div class="pill" onclick="filterNoticias('evento',this)">Eventos</div>
+        <div class="pill" onclick="filterNoticias('parceria',this)">Parcerias</div>
+      </div>
+      <div class="news-grid" id="noticiasList">
+        <div class="loading-state" style="grid-column:span 3"><div class="loading-spinner"></div>Carregando notícias...</div>
+      </div>
+    </div>
+  </div>
+  <div class="section section-dark">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow" style="color:var(--blue)">Assista também</div>
+        <div class="section-title section-title-light" style="font-family:var(--serif)">Vídeos e depoimentos</div>
+      </div>
+      <div class="video-list" id="videosList">
+        <div class="loading-state"><div class="loading-spinner"></div>Carregando vídeos...</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MEMORIAS ===== -->
+<section id="page-memorias" class="page-section">
+  <div style="background:var(--navy);padding:56px 0 48px">
+    <div class="container">
+      <div class="hero-eyebrow" style="margin-bottom:16px"><div class="hero-eyebrow-dot"></div><span>Galeria</span></div>
+      <div class="section-title section-title-light" style="font-family:var(--serif);font-size:42px">Nossas memórias</div>
+      <p class="section-sub section-sub-light" style="margin-top:10px">A história da RELINTER-EEAP contada em imagens.</p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="container">
+      <div class="pills" id="memoriasPills"></div>
+      <div id="memoriasList">
+        <div class="loading-state"><div class="loading-spinner"></div>Carregando memórias...</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONVENIOS ===== -->
+<section id="page-convenios" class="page-section">
+  <div style="background:var(--navy);padding:56px 0 48px">
+    <div class="container">
+      <div class="hero-eyebrow" style="margin-bottom:16px"><div class="hero-eyebrow-dot"></div><span>Parceiros</span></div>
+      <div class="section-title section-title-light" style="font-family:var(--serif);font-size:42px">Convênios internacionais</div>
+      <p class="section-sub section-sub-light" style="margin-top:10px">Instituições parceiras da RELINTER-EEAP ao redor do mundo.</p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="container">
+      <div class="convenios-grid" id="conveniosList">
+        <div class="loading-state" style="grid-column:span 3"><div class="loading-spinner"></div>Carregando convênios...</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTATO ===== -->
+<section id="page-contato" class="page-section">
+  <div style="background:var(--navy);padding:56px 0 48px">
+    <div class="container">
+      <div class="hero-eyebrow" style="margin-bottom:16px"><div class="hero-eyebrow-dot"></div><span>Fale conosco</span></div>
+      <div class="section-title section-title-light" style="font-family:var(--serif);font-size:42px">Contato</div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="container" style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start">
+      <div>
+        <div class="section-eyebrow">Coordenação</div>
+        <div class="section-title" style="margin-bottom:24px">RELINTER-EEAP</div>
+        <div class="equipe-card">
+          <div class="equipe-avatar">CR</div>
+          <div>
+            <div class="equipe-name">Cristiane Rodrigues da Rocha</div>
+            <div class="equipe-role">Coordenadora de Relações Internacionais</div>
+            <div class="equipe-email">relinter.enfermagem@unirio.br</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="contact-box">
+          <h3>Entre em contato</h3>
+          <p>Dúvidas sobre editais, intercâmbios ou parcerias? Fale com a gente.</p>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="4" width="14" height="10" rx="2" stroke="#5BC8F5" stroke-width="1.2"/><path d="M2 6L9 11L16 6" stroke="#5BC8F5" stroke-width="1.2"/></svg>
+            </div>
+            <div>
+              <div class="contact-label">E-mail</div>
+              <div class="contact-value">relinter.enfermagem@unirio.br</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2C6.24 2 4 4.24 4 7c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5z" stroke="#5BC8F5" stroke-width="1.2"/><circle cx="9" cy="7" r="2" stroke="#5BC8F5" stroke-width="1.2"/></svg>
+            </div>
+            <div>
+              <div class="contact-label">Endereço</div>
+              <div class="contact-value">Escola de Enfermagem Alfredo Pinto · UNIRIO</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="relinter_logo.png" alt="RELINTER" class="footer-logo-rel" onerror="this.style.display='none'">
+        <img src="eeap_logo.png" alt="EEAP" class="footer-logo-eeap" onerror="this.style.display='none'">
+      </div>
+      <div class="footer-info">
+        <p>Relações Internacionais — Escola de Enfermagem Alfredo Pinto · UNIRIO</p>
+        <p>Coordenadora: Cristiane Rodrigues da Rocha</p>
+        <p><a href="mailto:relinter.enfermagem@unirio.br">relinter.enfermagem@unirio.br</a></p>
+      </div>
+      <div class="footer-links">
+        <span class="footer-link" onclick="showPage('editais',document.querySelectorAll('.nav-link')[1])">Editais</span>
+        <span class="footer-link" onclick="showPage('noticias',document.querySelectorAll('.nav-link')[2])">Notícias</span>
+        <span class="footer-link" onclick="showPage('contato',document.querySelectorAll('.nav-link')[5])">Contato</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+/* ======================================================
+   CONFIGURAÇÃO — SUBSTITUA PELO ID DA SUA PLANILHA
+   ====================================================== */
+const SHEET_ID = '1H4aNWs4WhWgq08s6fVxvm6xZg1icKukX';
+
+/* Cores por categoria */
+const TAG_COLORS = {
+  'intercambio': 'tag-blue', 'intercâmbio': 'tag-blue',
+  'evento': 'tag-green', 'parceria': 'tag-purple',
+  'mobilidade': 'tag-blue', 'bolsa': 'tag-gold',
+  'pesquisa': 'tag-purple', 'webinar': 'tag-blue',
+  'depoimento': 'tag-green', 'video': 'tag-gold', 'vídeo': 'tag-gold',
+};
+function getTagColor(cat){ return TAG_COLORS[(cat||'').toLowerCase()] || 'tag-gray'; }
+
+/* ======================================================
+   BUSCA DE DADOS DO GOOGLE SHEETS
+   ====================================================== */
+async function fetchSheet(aba) {
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${aba}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error('Erro ao buscar dados');
+  const text = await res.text();
+  return parseCSV(text);
+}
+
+function parseCSV(text) {
+  const lines = text.trim().split('\n');
+  const headers = parseCSVLine(lines[0]).map(h => h.toLowerCase().replace(/\s+/g,'_'));
+  return lines.slice(1).filter(l => l.trim()).map(line => {
+    const vals = parseCSVLine(line);
+    const obj = {};
+    headers.forEach((h, i) => { obj[h] = (vals[i] || '').trim(); });
+    return obj;
+  });
+}
+
+function parseCSVLine(line) {
+  const result = []; let cur = ''; let inQ = false;
+  for (let i = 0; i < line.length; i++) {
+    if (line[i] === '"') { inQ = !inQ; }
+    else if (line[i] === ',' && !inQ) { result.push(cur); cur = ''; }
+    else { cur += line[i]; }
+  }
+  result.push(cur);
+  return result;
+}
+
+/* ======================================================
+   CACHE
+   ====================================================== */
+const cache = {};
+async function getData(aba) {
+  if (!cache[aba]) cache[aba] = await fetchSheet(aba);
+  return cache[aba];
+}
+
+/* ======================================================
+   NAVEGAÇÃO
+   ====================================================== */
+function showPage(id, triggerEl) {
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  document.querySelectorAll('.mobile-link').forEach(l => l.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  if (triggerEl) triggerEl.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  loadPage(id);
+}
+
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+/* ======================================================
+   ÍCONE PDF
+   ====================================================== */
+const ICON_PDF = `<svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+  <rect x="3" y="2" width="16" height="18" rx="3" stroke="#185FA5" stroke-width="1.3"/>
+  <line x1="7" y1="8" x2="15" y2="8" stroke="#185FA5" stroke-width="1"/>
+  <line x1="7" y1="11" x2="15" y2="11" stroke="#185FA5" stroke-width="1"/>
+  <line x1="7" y1="14" x2="11" y2="14" stroke="#185FA5" stroke-width="1"/>
+</svg>`;
+
+const ICON_PERSON = `<svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+  <circle cx="11" cy="9" r="4" stroke="#0F6E56" stroke-width="1.3"/>
+  <path d="M4 19C4 15.686 7.134 13 11 13s7 2.686 7 6" stroke="#0F6E56" stroke-width="1.3" stroke-linecap="round"/>
+</svg>`;
+
+const ICON_GLOBE = `<svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+  <circle cx="11" cy="11" r="8" stroke="#534AB7" stroke-width="1.3"/>
+  <ellipse cx="11" cy="11" rx="4" ry="8" stroke="#534AB7" stroke-width="1"/>
+  <line x1="3" y1="11" x2="19" y2="11" stroke="#534AB7" stroke-width="1"/>
+  <line x1="4" y1="8" x2="18" y2="8" stroke="#534AB7" stroke-width=".7"/>
+  <line x1="4" y1="14" x2="18" y2="14" stroke="#534AB7" stroke-width=".7"/>
+</svg>`;
+
+const ICON_PLAY = `<svg width="14" height="16" viewBox="0 0 14 16" fill="white"><path d="M1 1.5L13 8L1 14.5V1.5Z" fill="white"/></svg>`;
+
+/* ======================================================
+   HOME
+   ====================================================== */
+async function loadHome() {
+  try {
+    const [editais, noticias, convenios, memorias] = await Promise.all([
+      getData('editais'), getData('noticias'), getData('convenios'), getData('memorias')
+    ]);
+
+    /* Stats */
+    const abertos = editais.filter(e => (e.status||'').toLowerCase() === 'aberto');
+    const convAtivos = convenios.filter(c => (c.ativo||'').toLowerCase() === 'sim');
+    const paises = [...new Set(convenios.map(c => c.pais).filter(Boolean))];
+
+    document.getElementById('s1').textContent = convAtivos.length || '—';
+    document.getElementById('s2').textContent = abertos.length || '—';
+    document.getElementById('s3').textContent = paises.length || '—';
+    document.getElementById('s4').textContent = memorias.length || '—';
+    document.getElementById('statConvenios').textContent = convAtivos.length || '—';
+    document.getElementById('statEditais').textContent = abertos.length || '—';
+
+    /* Hero editais preview */
+    const hEl = document.getElementById('heroEditais');
+    hEl.innerHTML = abertos.slice(0,2).map(e => `
+      <div class="hero-edital-preview">
+        <div class="hero-edital-dot"></div>
+        <div class="hero-edital-text">
+          <div class="hero-edital-ttl">${e.titulo||''}</div>
+          <div class="hero-edital-sub">${e.descricao||e.tipo||''}</div>
+        </div>
+        <div class="hero-edital-badge">Aberto</div>
+      </div>`).join('');
+
+    /* Editais home */
+    const hEdit = document.getElementById('homeEditais');
+    const dest = editais.filter(e => (e.destaque||'').toLowerCase()==='sim' && (e.status||'').toLowerCase()==='aberto').slice(0,3);
+    hEdit.innerHTML = dest.length ? renderEditais(dest) : '<div class="empty-state"><div class="empty-icon">📋</div><p>Nenhum edital em destaque no momento.</p></div>';
+
+    /* Noticias home */
+    const hNot = document.getElementById('homeNoticias');
+    const destNot = noticias.filter(n => (n.destaque||'').toLowerCase()==='sim').slice(0,3);
+    hNot.innerHTML = destNot.length ? renderNoticias(destNot) : renderNoticias(noticias.slice(0,3));
+
+  } catch(e) {
+    console.error(e);
+    document.getElementById('homeEditais').innerHTML = erroHTML();
+    document.getElementById('homeNoticias').innerHTML = erroHTML();
+  }
+}
+
+/* ======================================================
+   EDITAIS
+   ====================================================== */
+let todosEditais = [];
+async function loadEditais() {
+  const el = document.getElementById('editaisList');
+  el.innerHTML = loadingHTML();
+  try {
+    todosEditais = await getData('editais');
+    renderEditaisPage('todos');
+  } catch(e) { el.innerHTML = erroHTML(); }
+}
+
+function renderEditais(lista) {
+  return lista.map(e => {
+    const aberto = (e.status||'').toLowerCase() === 'aberto';
+    const icoCor = aberto ? '#EBF2FF' : '#f5f5f5';
+    const icon = e.tipo?.toLowerCase().includes('bolsa') ? `<div style="background:${icoCor};width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center">${ICON_PERSON}</div>`
+                                                          : `<div style="background:${icoCor};width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center">${ICON_PDF}</div>`;
+    return `
+    <div class="edital-card ${aberto ? '' : 'encerrado'}">
+      ${icon}
+      <div class="edital-body">
+        <div class="edital-title">${e.titulo||'Sem título'}</div>
+        <div class="edital-meta">${[e.tipo, e.descricao].filter(Boolean).join(' · ')}</div>
+      </div>
+      <div class="edital-right">
+        <span class="${aberto ? 'badge-open' : 'badge-closed'}">${e.status||''}</span>
+        ${e.data_prazo ? `<div class="edital-prazo">Prazo: ${e.data_prazo}</div>` : ''}
+        ${e.link_pdf ? `<a href="${e.link_pdf}" target="_blank" class="edital-link">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1v8M3 6l3.5 3.5L10 6M2 12h9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          Acessar
+        </a>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderEditaisPage(filtro) {
+  const el = document.getElementById('editaisList');
+  let lista = filtro === 'encerrado'
+    ? todosEditais.filter(e => (e.status||'').toLowerCase() !== 'aberto')
+    : filtro === 'todos'
+      ? todosEditais
+      : todosEditais.filter(e => (e.tipo||'').toLowerCase().includes(filtro));
+  el.innerHTML = lista.length ? renderEditais(lista) : '<div class="empty-state"><div class="empty-icon">📋</div><p>Nenhum edital encontrado.</p></div>';
+}
+
+function filterEditais(filtro, el) {
+  document.querySelectorAll('#editaisPills .pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  renderEditaisPage(filtro);
+}
+
+/* ======================================================
+   NOTÍCIAS
+   ====================================================== */
+let todasNoticias = [];
+async function loadNoticias() {
+  const el = document.getElementById('noticiasList');
+  const elV = document.getElementById('videosList');
+  el.innerHTML = `<div class="loading-state" style="grid-column:span 3">${loadingHTML()}</div>`;
+  elV.innerHTML = loadingHTML();
+  try {
+    todasNoticias = await getData('noticias');
+    const videos = await getData('videos');
+    renderNoticiasPage('todos');
+    renderVideos(videos.filter(v => (v.ativo||'').toLowerCase() === 'sim'));
+  } catch(e) {
+    el.innerHTML = `<div style="grid-column:span 3">${erroHTML()}</div>`;
+    elV.innerHTML = erroHTML();
+  }
+}
+
+function renderNoticias(lista) {
+  return lista.map((n, i) => {
+    const featured = i === 0 && lista.length > 1;
+    const img = n.link_imagem
+      ? `<div class="news-img${featured ? ' featured-img' : ''}"><img src="${n.link_imagem}" alt="${n.titulo||''}" loading="lazy"></div>`
+      : `<div class="news-img${featured ? ' featured-img' : ''}" style="background:#EBF2FF"><div class="news-img-placeholder">${ICON_GLOBE}</div></div>`;
+    return `
+    <div class="news-card${featured ? ' featured' : ''}">
+      ${img}
+      <div class="news-body">
+        <div class="news-tag"><span class="tag ${getTagColor(n.categoria)}">${n.categoria||'Notícia'}</span></div>
+        <div class="news-title">${n.titulo||'Sem título'}</div>
+        <div class="news-date">${n.data||''}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderNoticiasPage(filtro) {
+  const el = document.getElementById('noticiasList');
+  let lista = filtro === 'todos' ? todasNoticias
+    : todasNoticias.filter(n => (n.categoria||'').toLowerCase().includes(filtro));
+  el.innerHTML = lista.length ? renderNoticias(lista)
+    : `<div style="grid-column:span 3"><div class="empty-state"><div class="empty-icon">📰</div><p>Nenhuma notícia encontrada.</p></div></div>`;
+}
+
+function filterNoticias(filtro, el) {
+  document.querySelectorAll('#noticiasPills .pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  renderNoticiasPage(filtro);
+}
+
+function renderVideos(lista) {
+  const el = document.getElementById('videosList');
+  el.innerHTML = lista.length ? lista.map(v => `
+    <a href="${v.link_youtube||'#'}" target="_blank" class="video-card">
+      <div class="play-btn">${ICON_PLAY}</div>
+      <div class="video-body">
+        <div class="video-title">${v.titulo||'Sem título'}</div>
+        <div class="video-sub"><span class="tag tag-blue" style="font-size:10px">${v.categoria||'Vídeo'}</span> · ${v.data||''}</div>
+      </div>
+      <div class="video-dur">${v.duracao||''}</div>
+    </a>`).join('')
+  : '<div class="empty-state"><div class="empty-icon">🎬</div><p>Nenhum vídeo disponível.</p></div>';
+}
+
+/* ======================================================
+   MEMÓRIAS
+   ====================================================== */
+const BG_COLORS = ['#C8DCFA','#B8E8D8','#D4C8F5','#FAD8B0','#FAC8C8','#C8EED8','#B8D4FA','#F5E6B8'];
+async function loadMemorias() {
+  const el = document.getElementById('memoriasList');
+  const pills = document.getElementById('memoriasPills');
+  el.innerHTML = loadingHTML();
+  try {
+    const data = await getData('memorias');
+    const anos = [...new Set(data.map(m => m.ano).filter(Boolean))].sort((a,b)=>b-a);
+
+    pills.innerHTML = `<div class="pill active" onclick="filterMemorias('todos',this)">Todos os anos</div>`
+      + anos.map(a => `<div class="pill" onclick="filterMemorias('${a}',this)">${a}</div>`).join('');
+
+    renderMemoriasPage(data, 'todos');
+  } catch(e) { el.innerHTML = erroHTML(); }
+}
+
+function renderMemoriasPage(data, filtro) {
+  const el = document.getElementById('memoriasList');
+  const lista = filtro === 'todos' ? data : data.filter(m => m.ano === filtro);
+  const anos = [...new Set(lista.map(m => m.ano).filter(Boolean))].sort((a,b)=>b-a);
+
+  if (!lista.length) { el.innerHTML = '<div class="empty-state"><div class="empty-icon">🖼️</div><p>Nenhuma memória encontrada.</p></div>'; return; }
+
+  el.innerHTML = anos.map(ano => {
+    const items = lista.filter(m => m.ano === ano);
+    const fotos = items.map((m, i) => {
+      const links = [m.link_foto_1, m.link_foto_2, m.link_foto_3].filter(Boolean);
+      return links.map((l, j) => {
+        const tall = (i + j) % 5 === 0;
+        const wide = (i + j) % 7 === 0;
+        const bg = BG_COLORS[(i + j) % BG_COLORS.length];
+        return `<div class="mem-item${tall?' tall':''}${wide?' wide':''}" style="background:${bg}">
+          <div class="mem-item-placeholder"><img src="${l}" alt="${m.evento||''}" style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror="this.parentElement.innerHTML='📷'"></div>
+        </div>`;
+      }).join('');
+    }).join('');
+
+    return `
+    <div class="mem-year-block">
+      <div class="mem-year-header">
+        <div class="mem-year-num">${ano}</div>
+        <div class="mem-year-line"></div>
+        <div class="mem-year-count">${items.length} ${items.length===1?'evento':'eventos'}</div>
+      </div>
+      ${items.map(m=>`
+        <div style="margin-bottom:10px;font-size:14px;font-weight:600;color:var(--navy)">${m.evento||''}</div>
+        ${m.descricao ? `<div style="font-size:13px;color:var(--muted);margin-bottom:12px">${m.descricao}</div>` : ''}
+      `).join('')}
+      <div class="mem-masonry">${fotos}</div>
+    </div>`;
+  }).join('');
+}
+
+async function filterMemorias(filtro, el) {
+  document.querySelectorAll('#memoriasPills .pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  const data = await getData('memorias');
+  renderMemoriasPage(data, filtro);
+}
+
+/* ======================================================
+   CONVÊNIOS
+   ====================================================== */
+async function loadConvenios() {
+  const el = document.getElementById('conveniosList');
+  el.innerHTML = `<div class="loading-state" style="grid-column:span 3">${loadingHTML()}</div>`;
+  try {
+    const data = (await getData('convenios')).filter(c => (c.ativo||'').toLowerCase() === 'sim');
+    el.innerHTML = data.length ? data.map(c => `
+      <div class="conv-card">
+        <div class="conv-country">${c.pais||''}</div>
+        <div class="conv-name">${c.instituicao||'Sem nome'}</div>
+        <div class="conv-tipo">${c.tipo||''}</div>
+        <div class="conv-footer">
+          <div class="conv-vigencia">${c.vigencia ? `Vigência: ${c.vigencia}` : ''}</div>
+          ${c.link_site ? `<a href="${c.link_site.startsWith('http')?c.link_site:'https://'+c.link_site}" target="_blank" style="font-size:12px;color:var(--blue2);font-weight:600">Visitar →</a>` : ''}
+        </div>
+      </div>`).join('')
+    : '<div class="empty-state" style="grid-column:span 3"><div class="empty-icon">🤝</div><p>Nenhum convênio cadastrado.</p></div>';
+  } catch(e) { el.innerHTML = `<div style="grid-column:span 3">${erroHTML()}</div>`; }
+}
+
+/* ======================================================
+   UTILS
+   ====================================================== */
+function loadingHTML() { return `<div class="loading-state"><div class="loading-spinner"></div>Carregando...</div>`; }
+function erroHTML() {
+  return `<div class="empty-state">
+    <div class="empty-icon">⚠️</div>
+    <p>Não foi possível carregar os dados.<br>Verifique se o ID da planilha está configurado corretamente.</p>
+  </div>`;
+}
+
+/* ======================================================
+   ROTEADOR DE PÁGINAS
+   ====================================================== */
+const loaded = {};
+function loadPage(id) {
+  if (loaded[id]) return;
+  loaded[id] = true;
+  if (id === 'home')      loadHome();
+  if (id === 'editais')   loadEditais();
+  if (id === 'noticias')  loadNoticias();
+  if (id === 'memorias')  loadMemorias();
+  if (id === 'convenios') loadConvenios();
+}
+
+/* Inicializa */
+loadPage('home');
+</script>
+</body>
+</html>
